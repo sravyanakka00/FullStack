@@ -22,9 +22,10 @@ def load_user(user_id):
 def init_database():
     """Initialize database with sample data"""
     with app.app_context():
-        # Drop alll tables and recreate
+        # Drop alll tables and recreate.
         db.drop_all()
         db.create_all()
+        
         
         # Create categoriesss
         categories_data = [
