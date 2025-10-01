@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron p-5 rounded mb-4" style="background: linear-gradient(135deg, #FF9933 0%, #138808 100%);">
+            <h1 class="display-4 text-white">Welcome to PurnaMarket</h1>
+            <p class="lead text-white">Discover Authentic Indian Products at Best Prices</p>
+            <p class="text-white">Free Shipping on orders above ₹499</p>
+        </div>
+    </div>
+</div>
+
+<!-- Categories Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <h3>Shop by Category</h3>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{{ url_for('index') }}" class="btn btn-outline-primary btn-sm {% if not selected_category %}active{% endif %}">
+                All Products
+            </a>
+            {% for category in categories %}
+            <a href="{{ url_for('category_products', category_id=category.id) }}" 
+               class="btn btn-outline-primary btn-sm {% if selected_category and selected_category.id == category.id %}active{% endif %}">
+                {{ category.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% if selected_category %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h4>Category: {{ selected_category.name }}</h4>
+        <p class="text-muted">Showing {{ products|length }} products</p>
+    </div>
+</div>
+{% endif %}
+
+<!-- Products Grid -->
+<div class="row" id="products-container">
+    {% for product in products %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100 product-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text text-muted small">{{ product.description }}</p>
+                <p class="card-text"><strong class="text-success">₹{{ "%.2f"|format(product.price) }}</strong></p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        <span class="badge bg-secondary">{{ product.category_rel.name }}</span>
+                        {% if product.stock > 0 %}
+                            <span class="badge bg-success">In Stock</span>
+                        {% else %}
+                            <span class="badge bg-warning">Out of Stock</span>
+                        {% endif %}
+                    </small>
+                </p>
+            </div>
+            <div class="card-footer bg-transparent">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn btn-warning btn-sm w-100 add-to-cart-btn">
+                        🛒 Add to Cart
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-warning btn-sm w-100">
+                        Login to Purchase
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center py-5">
+        <div class="alert alert-info">
+            <i class="fas fa-search fa-2x mb-3"></i>
+            <h4>No products found</h4>
+            <p>Try browsing other categories or search for different products.</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Indian Festival Banner -->
+<div class="row mt-5">
+    <div class="col-12">
+    </div>
+</div>
+{% endblock %}
