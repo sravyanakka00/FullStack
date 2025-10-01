@@ -61,7 +61,7 @@
             <div class="card-footer bg-transparent">
                 {% if current_user.is_authenticated %}
                     <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn btn-warning btn-sm w-100 add-to-cart-btn">
-                        🛒 Add to Cart
+                         Add to Cart
                     </a>
                 {% else %}
                     <a href="{{ url_for('login') }}" class="btn btn-outline-warning btn-sm w-100">
@@ -81,6 +81,7 @@
     </div>
     {% endfor %}
 </div>
+
 
 <!-- Indian Festival Banner -->
 <div class="row mt-5">
