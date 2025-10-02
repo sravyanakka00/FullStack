@@ -1,0 +1,232 @@
+/* Indian Theme CSS with Enhanced Features */
+:root {
+    --saffron: #390803;
+    --green: #963a3a;
+    --white: #FFFFFF;
+    --light-bg: #f8f9fa;
+}
+
+.jumbotron {
+    background: linear-gradient(135deg, var(--saffron) 0%, var(--green) 100%) !important;
+}
+
+.navbar {
+    background-color: var(--saffron) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.btn-warning {
+    background-color: var(--saffron);
+    border-color: var(--saffron);
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #220401;
+    border-color: #240902;
+    color: white;
+}
+
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(255, 153, 51, 0.15);
+}
+
+.product-image {
+    transition: transform 0.3s ease;
+    height: 200px;
+    object-fit: cover;
+}
+
+.text-success {
+    color: var(--green) !important;
+}
+
+.badge.bg-success {
+    background-color: var(--green) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--saffron) !important;
+}
+
+/* Cart badge animation */
+.cart-badge {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--saffron);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Flash message styles */
+.flash-message-auto {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 1050;
+    min-width: 300px;
+    animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Category filter styles */
+.category-filter.active {
+    background-color: var(--saffron) !important;
+    border-color: var(--saffron) !important;
+    color: white !important;
+}
+
+/* Price range slider */
+.price-range {
+    accent-color: var(--saffron);
+}
+
+/* Wishlist button */
+.wishlist-btn.active {
+    color: #dc3545 !important;
+}
+
+/* Stock status */
+.stock-low {
+    color: #000211;
+}
+
+.stock-out {
+    color: #dc3545;
+}
+
+/* Order status progress */
+.order-progress {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 20px 0;
+}
+
+.order-progress::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #dee2e6;
+    transform: translateY(-50%);
+}
+
+.progress-step {
+    position: relative;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+}
+
+.progress-step.active {
+    background: var(--saffron);
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .product-card {
+        margin-bottom: 1rem;
+    }
+    
+    .flash-message-auto {
+        left: 10px;
+        right: 10px;
+        min-width: auto;
+    }
+}
+
+/* Back to top button */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    z-index: 1000;
+}
+
+/* Payment method icons */
+.payment-method {
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-method:hover {
+    border-color: var(--saffron);
+}
+
+.payment-method.selected {
+    border-color: var(--saffron);
+    background-color: rgba(255, 153, 51, 0.1);
+}
+
+/* Quantity input styles */
+.quantity-input {
+    width: 80px;
+    text-align: center;
+}
+
+footer {
+    margin-top: auto;
+    background-color: #343a40 !important;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light-bg);
+}
+
+.container {
+    flex: 1;
+}
