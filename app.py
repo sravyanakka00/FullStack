@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'your-secret-key-here-change-in-production'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize extensions
+# Initialize extensionss
 db.init_app(app)
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -22,7 +22,7 @@ def load_user(user_id):
 def init_database():
     """Initialize database with sample data"""
     with app.app_context():
-        # Drop alll tables and recreate.
+        # Drop alll tables and recreate.git add app.py
         db.drop_all()
         db.create_all()
         
