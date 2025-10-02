@@ -26,7 +26,7 @@ def init_database():
         db.drop_all()
         db.create_all()
         
-        # Create categories
+        # Create categoriesss
         categories_data = [
             'Electronics', 'Fashion', 'Home & Kitchen', 
             'Groceries', 'Sports', 'Home Decor'
