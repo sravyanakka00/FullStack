@@ -82,7 +82,7 @@
                 
                 {% if total_amount >= 1999 %}
                 <div class="alert alert-success py-2">
-                    <small>🎉 You saved ₹{{ "%.2f"|format(total_amount * 0.1) }} with festival discount!</small>
+                    <small> You saved ₹{{ "%.2f"|format(total_amount * 0.1) }} with festival discount!</small>
                 </div>
                 {% endif %}
                 
@@ -117,9 +117,7 @@
             <i class="fas fa-shopping-cart fa-3x mb-3 text-muted"></i>
             <h4>Your cart is empty!</h4>
             <p>Discover amazing Indian products and add them to your cart.</p>
-            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
-                <i class="fas fa-shopping-bag"></i> Start Shopping
-            </a>
+            
         </div>
     </div>
 </div>
