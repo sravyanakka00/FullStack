@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-credit-card"></i> Checkout</h2>
+        <p class="text-muted">Complete your purchase</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Shipping Information</h5>
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" 
+                                   value="{{ current_user.username }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   value="{{ current_user.email }}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Shipping Address</label>
+                        <textarea class="form-control" id="address" name="address" rows="3" 
+                                  placeholder="Enter your complete address" required></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="pincode" class="form-label">PIN Code</label>
+                            <input type="text" class="form-control" id="pincode" name="pincode" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="payment_method" class="form-label">Payment Method</label>
+                        <select class="form-select" id="payment_method" name="payment_method" required>
+                            <option value="">Select Payment Method</option>
+                            <option value="upi">UPI (PhonePe, GPay, Paytm)</option>
+                            <option value="card">Credit/Debit Card</option>
+                            <option value="netbanking">Net Banking</option>
+                            <option value="cod">Cash on Delivery</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            I agree to the <a href="#">terms and conditions</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success btn-lg w-100">
+                        <i class="fas fa-lock"></i> Place Order
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Order Summary</h5>
+                
+                {% for item in cart_items %}
+                <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+                    <div>
+                        <h6 class="mb-0">{{ item.product.name }}</h6>
+                        <small class="text-muted">Qty: {{ item.quantity }}</small>
+                    </div>
+                    <span class="text-success">₹{{ "%.2f"|format(item.product.price * item.quantity) }}</span>
+                </div>
+                {% endfor %}
+                
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotal:</span>
+                    <span>₹{{ "%.2f"|format(total_amount) }}</span>
+                </div>
+                
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Shipping:</span>
+                    <span class="text-success">
+                        {% if total_amount >= 499 %}
+                            FREE
+                        {% else %}
+                            ₹50
+                        {% endif %}
+                    </span>
+                </div>
+                
+                {% if total_amount >= 1999 %}
+                <div class="d-flex justify-content-between mb-2 text-success">
+                    <span>Festival Discount (10%):</span>
+                    <span>-₹{{ "%.2f"|format(total_amount * 0.1) }}</span>
+                </div>
+                {% endif %}
+                
+                <hr>
+                
+                <div class="d-flex justify-content-between mb-3">
+                    <strong>Total Amount:</strong>
+                    <strong class="text-success">
+                        ₹{{ "%.2f"|format(total_amount + (0 if total_amount >= 499 else 50) - (total_amount * 0.1 if total_amount >= 1999 else 0)) }}
+                    </strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6><i class="fas fa-truck text-primary"></i> Free Shipping</h6>
+                <p class="small text-muted mb-2">On orders above ₹499</p>
+                
+                <h6><i class="fas fa-shield-alt text-success"></i> Secure Payment</h6>
+                <p class="small text-muted mb-2">Your payment information is safe</p>
+                
+                <h6><i class="fas fa-undo text-info"></i> Easy Returns</h6>
+                <p class="small text-muted mb-0">10-day return policy</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
