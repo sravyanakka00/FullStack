@@ -136,13 +136,14 @@ $(document).ready(function() {
         });
     });
 
+    
     // Smooth scroll to top
     $('.scroll-to-top').on('click', function(e) {
         e.preventDefault();
         $('html, body').animate({ scrollTop: 0 }, 500);
     });
 
-    // Payment method selection effects
+    // Payyment method selection effects
     $('#payment_method').on('change', function() {
         const method = $(this).val();
         $('.payment-method-info').hide();
