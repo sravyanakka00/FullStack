@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-history"></i> My Orders</h2>
+        <p class="text-muted">Your order history and tracking</p>
+    </div>
+</div>
+
+{% if orders %}
+<div class="row">
+    <div class="col-12">
+        {% for order in orders %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Order #{{ order.id }}</strong>
+                        <br>
+                        <small class="text-muted">Placed on {{ order.created_at.strftime('%d %B, %Y at %I:%M %p') }}</small>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <span class="badge 
+                            {% if order.status == 'confirmed' %}bg-success
+                            {% elif order.status == 'shipped' %}bg-info
+                            {% elif order.status == 'delivered' %}bg-primary
+                            {% else %}bg-warning{% endif %}">
+                            {{ order.status|title }}
+                        </span>
+                        <br>
+                        <strong class="text-success">₹{{ "%.2f"|format(order.total_price) }}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <img src="{{ order.product.image or '/static/images/placeholder.jpg' }}" 
+                             alt="{{ order.product.name }}" class="img-fluid rounded" style="height: 80px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="card-title mb-1">{{ order.product.name }}</h5>
+                        <p class="card-text text-muted small mb-1">{{ order.product.description }}</p>
+                        <p class="card-text mb-0">
+                            Quantity: {{ order.quantity }} × ₹{{ "%.2f"|format(order.product.price) }}
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        {% if order.status == 'confirmed' %}
+                        <span class="text-info"><i class="fas fa-clock"></i> Processing</span>
+                        {% elif order.status == 'shipped' %}
+                        <span class="text-primary"><i class="fas fa-shipping-fast"></i> Shipped</span>
+                        {% elif order.status == 'delivered' %}
+                        <span class="text-success"><i class="fas fa-check-circle"></i> Delivered</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {% if order.shipping_address %}
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <small class="text-muted">
+                            <strong>Shipping Address:</strong> {{ order.shipping_address }}
+                        </small>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-12 text-center py-5">
+        <div class="alert alert-info">
+            <i class="fas fa-shopping-bag fa-3x mb-3 text-muted"></i>
+            <h4>No orders yet!</h4>
+            <p>Start shopping and your orders will appear here.</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-shopping-bag"></i> Start Shopping
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
