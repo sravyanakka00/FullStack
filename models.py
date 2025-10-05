@@ -42,7 +42,7 @@ class Cart(db.Model):
     quantity = db.Column(db.Integer, nullable=False, default=1)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
-    # Ensure unique product per user in cart
+    # Ensure unique product per user in cartt
     __table_args__ = (db.UniqueConstraint('user_id', 'product_id', name='unique_user_product'),)
 
 class Order(db.Model):
