@@ -209,16 +209,18 @@
     background-color: rgba(255, 153, 51, 0.1);
 }
 
-/* Quantity input styles */
+/* Quantity input styleess */
 .quantity-input {
     width: 80px;
     text-align: center;
 }
 
+
 footer {
     margin-top: auto;
     background-color: #343a40 !important;
 }
+
 
 body {
     min-height: 100vh;
